@@ -107,25 +107,38 @@
           >
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label>Category</label>
           <input
             v-model="form.category"
             class="form-control"
             required
           >
-        </div>
+        </div> -->
 
         <div class="form-group">
-          <label>Unit Type</label>
-          <input
-            v-model="form.unit_type"
-            class="form-control"
-            required
-          >
+          <label for="role">Category</label>
+          <select v-model="form.category" id="role" required>
+            <option value="">Pilih Category</option>
+            <option value="Module">Module</option>
+            <option value="Catatan">Catatan</option>
+            <option value="Soal">Soal</option>
+            <option value="Buku">Buku</option>
+          </select>
         </div>
-
+        
         <div class="form-group">
+          <label for="role">Unit Type</label>
+          <select v-model="form.unit_type" id="role" required>
+            <option value="">Pilih Unit Type</option>
+            <option value="Pcs">Pcs</option>
+            <option value="Unit">Unit</option>
+            <option value="Dus">Dus</option>
+            <option value="Set">Set</option>
+          </select>
+        </div>
+        
+        <div class="form-group" v-if="!form.id">
           <label>Stok Awal</label>
           <input
             v-model.number="form.stock_onhand"
@@ -207,9 +220,12 @@ const editProduct = (product) => {
     id: product.id,
     code: product.code,
     name: product.name,
-    stock_onhand: product.stock_onhand || 0
-  }
-
+    stock_onhand: product.stock_onhand || 0,
+    description: product.description,
+    category: product.category,
+    unit_type: product.unit_type,
+    unit_price: product.unit_price || 0
+  }  
   showForm.value = true
 }
 
@@ -257,7 +273,12 @@ const resetForm = () => {
     id: null,
     code: '',
     name: '',
-    stock_onhand: 0
+    stock_onhand: 0,
+    description: '',
+    category: '',
+    unit_type: '',
+    unit_price: 0
+
   }
 
   showForm.value = false

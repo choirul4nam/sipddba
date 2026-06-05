@@ -143,8 +143,8 @@ router.post('/', authMiddleware, roleMiddleware(['gudang']), async (req, res) =>
     // Create initial stock record
     await pool.query(
       `INSERT INTO stock (product_id, stock_onhand, stock_order, stock_akhir, updated_by)
-       VALUES ($1, $2, 0, 0, $3)`,
-      [result.rows[0].id, stock_onhand ,req.user.id]
+       VALUES ($1, $2, 0, $3, $4)`,
+      [result.rows[0].id, stock_onhand, stock_onhand, req.user.id]
     );
 
     res.status(201).json({
@@ -164,7 +164,7 @@ router.post('/', authMiddleware, roleMiddleware(['gudang']), async (req, res) =>
 // Update product (gudang only)
 router.put('/:id', authMiddleware, roleMiddleware(['gudang']), async (req, res) => {
   try {
-    const { name, description, category, unit_price, unit_type, is_active } = req.body;
+    const { name, description, category, unit_price, unit_type, is_active, code } = req.body;
     const { id } = req.params;
 
     const result = await pool.query(
@@ -174,12 +174,26 @@ router.put('/:id', authMiddleware, roleMiddleware(['gudang']), async (req, res) 
            category = COALESCE($3, category),
            unit_price = COALESCE($4, unit_price),
            unit_type = COALESCE($5, unit_type),
-           is_active = COALESCE($6, is_active)
-       WHERE id = $7
+           is_active = COALESCE($6, is_active),
+           code = COALESCE($7, code)
+       WHERE id = $8
        RETURNING *`,
-      [name, description, category, unit_price, unit_type, is_active, id]
+      [name, description, category, unit_price, unit_type, is_active, code, id]
     );
 
+    // pool.query(
+    //   `UPDATE stock 
+    //    SET name = COALESCE($1, name),
+    //        description = COALESCE($2, description),
+    //        category = COALESCE($3, category),
+    //        unit_price = COALESCE($4, unit_price),
+    //        unit_type = COALESCE($5, unit_type),
+    //        is_active = COALESCE($6, is_active),
+    //        code = COALESCE($7, code)
+    //    WHERE id = $8
+    //    RETURNING *`,
+    //   [name, description, category, unit_price, unit_type, is_active, code, id]
+    // );
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,

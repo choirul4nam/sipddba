@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="action-section">
+    <!-- <div class="action-section">
       <h3>Quick Actions</h3>
       <div class="button-group">
         <router-link to="/catalog" class="btn btn-primary">
@@ -40,7 +40,7 @@
           Shopping Cart
         </router-link>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

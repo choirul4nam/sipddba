@@ -33,6 +33,9 @@
             <router-link to="/dashboard" @click="closeMobileMenu">Dashboard</router-link>
           </li>
           <li v-if="store.isAuthenticated && store.user?.role === 'mahasiswa'">
+            <router-link to="/catalog" @click="closeMobileMenu">Catalog</router-link>
+          </li>
+          <li v-if="store.isAuthenticated && store.user?.role === 'mahasiswa'">
             <router-link to="/orders" @click="closeMobileMenu">My Orders</router-link>
           </li>
           <li v-if="store.isAuthenticated && store.user?.role === 'mahasiswa'">
@@ -55,11 +58,14 @@
             <router-link to="/admin/dashboard" @click="closeMobileMenu">Dashboard</router-link>
           </li>
           <li v-if="store.isAuthenticated && store.user?.role === 'admin'">
-            <router-link to="/admin/users" @click="closeMobileMenu">Manage Users</router-link>
+            <router-link to="/products" @click="closeMobileMenu">Products</router-link>
           </li>
           <li v-if="store.isAuthenticated && store.user?.role === 'admin'">
-            <router-link to="/admin/payments" @click="closeMobileMenu">Payment Approvals</router-link>
+            <router-link to="/admin/users" @click="closeMobileMenu">Users</router-link>
           </li>
+          <li v-if="store.isAuthenticated && store.user?.role === 'admin'">
+            <router-link to="/orders" @click="closeMobileMenu">Orders</router-link>
+          </li>                    
           <li v-if="store.isAuthenticated && store.user?.role === 'admin'">
             <router-link to="/admin/reports" @click="closeMobileMenu">Reports</router-link>
           </li>

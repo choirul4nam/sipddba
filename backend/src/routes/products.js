@@ -55,6 +55,41 @@ router.get('/with-stock', authMiddleware, roleMiddleware(['admin', 'gudang']), a
   }
 });
 
+router.get('/top-selling', authMiddleware, roleMiddleware(['admin', 'gudang']), async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+          SUM(a.quantity) AS quantity,
+          b.id,
+          b.name,
+          b.description,
+          b.code,
+          b.category
+      FROM order_items a
+      JOIN products b
+          ON a.product_id = b.id
+      GROUP BY
+          b.id,
+          b.name,
+          b.description,
+          b.code,
+          b.category
+      ORDER BY quantity DESC LIMIT 10;
+    `);
+
+    res.json({
+      success: true,
+      data: result.rows,
+    });    
+  } catch (error) {    
+    console.error('Get top selling products error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Get product by id
 router.get('/:id', async (req, res) => {
   try {
@@ -200,6 +235,5 @@ router.put('/:id/deactivate', authMiddleware, roleMiddleware(['gudang', 'admin']
     });
   }
 });
-
 
 module.exports = router;

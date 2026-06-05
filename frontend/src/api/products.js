@@ -6,7 +6,8 @@ export const productsAPI = {
   getById: (id) => client.get(`/products/${id}`),
   create: (data) => client.post('/products', data),
   update: (id, data) => client.put(`/products/${id}`, data),
-  deactivate: (id) => client.put(`/products/${id}/deactivate`)
+  deactivate: (id) => client.put(`/products/${id}/deactivate`),
+  topSelling: () => client.get('/products/top-selling'),
 }
 
 export default productsAPI

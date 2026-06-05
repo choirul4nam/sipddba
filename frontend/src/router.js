@@ -16,12 +16,12 @@ import OrderDetailPage from './pages/orders/OrderDetail.vue'
 // Gudang pages
 import GudangDashboard from './pages/gudang/Dashboard.vue'
 import ProductsPage from './pages/masters/Products.vue'
-import ShipmentsPage from './pages/gudang/Shipments.vue'
+// import ShipmentsPage from './pages/gudang/Shipments.vue'
 
 // Admin pages
 import AdminDashboard from './pages/admin/Dashboard.vue'
-import AdminUsers from './pages/admin/Users.vue'
-import AdminPayments from './pages/admin/Payments.vue'
+import AdminUsers from './pages/masters/Users.vue'
+// import AdminPayments from './pages/admin/Payments.vue'
 import AdminReports from './pages/admin/Reports.vue'
 
 const routes = [
@@ -101,12 +101,12 @@ const routes = [
     name: 'products',
     meta: { requiresAuth: true, roles: ['gudang', 'admin']}
   },
-  {
-    path: '/shipments',
-    component: ShipmentsPage,
-    name: 'shipments',
-    meta: { requiresAuth: true, roles: ['gudang'] }
-  },
+  // {
+  //   path: '/shipments',
+  //   component: ShipmentsPage,
+  //   name: 'shipments',
+  //   meta: { requiresAuth: true, roles: ['gudang'] }
+  // },
 
   // Admin routes
   {
@@ -121,12 +121,12 @@ const routes = [
     name: 'admin-users',
     meta: { requiresAuth: true, roles: ['admin'] }
   },
-  {
-    path: '/admin/payments',
-    component: AdminPayments,
-    name: 'admin-payments',
-    meta: { requiresAuth: true, roles: ['admin'] }
-  },
+  // {
+  //   path: '/admin/payments',
+  //   component: AdminPayments,
+  //   name: 'admin-payments',
+  //   meta: { requiresAuth: true, roles: ['admin'] }
+  // },
   {
     path: '/admin/reports',
     component: AdminReports,

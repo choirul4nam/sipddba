@@ -12,6 +12,7 @@ router.get('/', authMiddleware, roleMiddleware(['admin']), async (req, res) => {
              r.name as role, u.is_active, u.created_at
       FROM users u
       JOIN roles r ON u.role_id = r.id
+      WHERE u.is_active='true'
       ORDER BY u.created_at DESC
     `);
 
@@ -164,6 +165,40 @@ router.put('/:id/toggle-status', authMiddleware, roleMiddleware(['admin']), asyn
     res.status(500).json({
       success: false,
       message: 'Internal server error',
+    });
+  }
+});
+
+router.put('/:id/deactivate', authMiddleware, roleMiddleware(['admin']), async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await pool.query(
+      `UPDATE users
+       SET is_active = false
+       WHERE id = $1
+       RETURNING *`,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'User deactivated successfully',
+      data: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Deactivate user error:', error);
+
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error'
     });
   }
 });

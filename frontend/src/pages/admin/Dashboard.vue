@@ -182,8 +182,13 @@
                 <td>{{ order.full_name }}</td>
                 <td>{{ order.email }}</td>
                 <td>{{ order.order_date }}</td>
-                <td>{{ order.total_amount }}</td>
-                <td>{{ order.status }}</td>
+                <td>Rp {{ formatPrice(order.total_amount) }}</td>
+                <td>
+                  <span :class="['status-badge', `status-${order.status}`]">
+                    {{ formatStatus(order.status) }}
+                  </span>
+                </td>
+                <!-- <td>{{ order.status }}</td> -->
               </tr>
             </tbody>
           </table>
@@ -373,6 +378,23 @@ const lowStocks = ref([])
 const topProducts = ref([])
 
 const error = ref('')
+
+const formatStatus = (status) => {
+  const statusMap = {
+    pending: 'Pending',
+    payment_submitted: 'Waiting Payment Approval',
+    payment_approved: 'Approved',
+    shipped: 'Shipped',
+    received: 'Received',
+    cancelled: 'Cancelled',
+    rejected: 'Rejected'
+  }
+  return statusMap[status] || status
+}
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('id-ID').format(price)
+}
 
 // 1. Chart Order Per Bulan
 const orderChartSeries = ref([
@@ -659,5 +681,47 @@ onMounted(() => {
 
 .menu-card p {
   color: #666;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-payment_submitted {
+  background-color: #dbeafe;
+  color: #0c2340;
+}
+
+.status-payment_approved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-shipped {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.status-received {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.status-rejected {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+.status-cancelled {
+  background-color: #fee2e2;
+  color: #7f1d1d;
 }
 </style>

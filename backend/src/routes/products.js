@@ -97,9 +97,9 @@ router.get('/:id', async (req, res) => {
       SELECT p.*, s.stock_onhand, s.stock_order, s.stock_akhir
       FROM products p
       LEFT JOIN stock s ON p.id = s.product_id
-      WHERE p.id = $1 AND p.is_active='false'
+      WHERE p.id = $1 AND p.is_active='true'
     `, [req.params.id]);
-
+    
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,

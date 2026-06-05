@@ -167,7 +167,7 @@
           "
           class="section"
         >
-          <h3>Approval Pembayaran</h3>
+          <h3>Proses Pengiriman</h3>
 
           <div class="button-group">
             <button
@@ -223,14 +223,14 @@
         </div>
 
         <div v-if="store.user?.role === 'mahasiswa' && order.status === 'shipped'" class="section">
-         
+          <h3>Terima Barang</h3>
           <button 
             @click="handleMarkAsReceived"
             class="btn btn-success"
             :disabled="receiveLoading"
           >
 
-            <span v-if="!receiveLoading">Mark as Received</span>
+            <span v-if="!receiveLoading">Terima Barang</span>
             <span v-else>Processing...</span>
           </button>
         </div>

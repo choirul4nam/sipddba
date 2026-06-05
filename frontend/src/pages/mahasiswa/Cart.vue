@@ -84,6 +84,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ordersAPI from '../../api/orders'
 import { store } from '../../store'
+import productsAPI from '../../api/products'
 
 
 const router = useRouter()
@@ -157,11 +158,29 @@ const handleCheckout = async () => {
     error.value = 'Your cart is empty'
     return
   }
+  
 
   loading.value = true
   error.value = ''
 
   try {
+    for (const item of store.cart) {
+     
+      const productRes = await productsAPI.getById(item.id)
+            
+      const freshProductData = productRes.data.data
+      console.log(freshProductData)
+      
+      const stokTersedia = Number(freshProductData.stock_akhir ?? freshProductData.stock_onhand ?? 0)
+      
+      if (item.quantity > stokTersedia) {
+        error.value = `Gagal Checkout! Stok terbaru untuk "${item.name}" tidak mencukupi. Tersedia di gudang: ${stokTersedia}, Keranjang Anda: ${item.quantity}`
+        alert(error.value)
+        loading.value = false 
+        return 
+      }
+    }
+
     const items = store.cart.map(item => ({
       product_id: item.id,
       quantity: item.quantity

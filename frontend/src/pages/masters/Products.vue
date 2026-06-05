@@ -42,7 +42,7 @@
             <td>{{ product.description }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.unit_type }}</td>
-            <td>{{ product.unit_price }}</td>
+            <td>Rp {{ formatPrice(product.unit_price) }}</td>
             <td>{{ product.stock_onhand }}</td>
             <td>{{ product.stock_order }}</td>
             <td>{{ product.stock_akhir }}</td>
@@ -178,6 +178,10 @@ const form = ref({
   name: '',
   stock_onhand: 0
 })
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('id-ID').format(price)
+}
 
 const loadProducts = async () => {
   try {

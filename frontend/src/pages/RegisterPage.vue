@@ -56,8 +56,8 @@
           <select v-model="form.role" id="role" required>
             <option value="">Pilih Tipe Akun</option>
             <option value="mahasiswa">Mahasiswa</option>
-            <option value="gudang">Gudang</option>
-            <option value="admin">Admin</option>
+            <!-- <option value="gudang">Gudang</option>
+            <option value="admin">Admin</option> -->
           </select>
         </div>
 

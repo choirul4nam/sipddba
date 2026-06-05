@@ -259,10 +259,10 @@ EXECUTE FUNCTION update_payment_approvals_timestamp();
 
 -- Sample Users
 INSERT INTO users (email, password, full_name, phone_number, role_id) VALUES
-('gudang@example.com', '$2b$10$YourHashedPasswordHere', 'Budi Santoso', '081234567890', 1),
-('admin@example.com', '$2b$10$YourHashedPasswordHere', 'Admin System', '081234567891', 3),
-('mahasiswa1@example.com', '$2b$10$YourHashedPasswordHere', 'Andi Wijaya', '081234567892', 2),
-('mahasiswa2@example.com', '$2b$10$YourHashedPasswordHere', 'Siti Nurhaliza', '081234567893', 2)
+('gudang@example.com', '$2b$10$iWiPC6CMMcbDKBa1cV2KVOo0QVOl8cTug3F5RDST4iomr2Z.Ryf.2', 'Budi Santoso', '081234567890', 1),
+('admin@example.com', '$2b$10$iWiPC6CMMcbDKBa1cV2KVOo0QVOl8cTug3F5RDST4iomr2Z.Ryf.2', 'Admin System', '081234567891', 3),
+('mahasiswa1@example.com', '$2b$10$iWiPC6CMMcbDKBa1cV2KVOo0QVOl8cTug3F5RDST4iomr2Z.Ryf.2', 'Andi Wijaya', '081234567892', 2),
+('mahasiswa2@example.com', '$2b$10$iWiPC6CMMcbDKBa1cV2KVOo0QVOl8cTug3F5RDST4iomr2Z.Ryf.2', 'Siti Nurhaliza', '081234567893', 2)
 ON CONFLICT DO NOTHING;
 
 -- Sample Products
